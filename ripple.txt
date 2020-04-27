@@ -1,0 +1,27 @@
+[currencies]
+CNY rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+XLM rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+ULT rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+
+[domain]
+foxcny.com
+
+[accounts]
+rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+
+[hotwallets]
+rLSnkKvMfPD9abLoQFxQJMYyZqJcsqkL3o
+
+# XLM
+r3G1JyRpwMsVaY21QkwE9g3zVuLonWL3qR
+
+# ripple2stellar
+rpWKyqptwSMyexGitY1ukR2Y4rbpzassQR
+
+[federation_url]
+https://foxcny.com/bridge
+
+
+[fees]
+Deposit: 0
+IOU transfer: 0
