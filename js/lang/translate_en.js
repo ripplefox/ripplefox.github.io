@@ -19,7 +19,7 @@ var translate_en = {
     h12:'Distribution',
     b101:'Since 2014, Fiat and Crypto & Peer-To-Peer',
     b102:'The next generation global trading，A better way to trade',
-    b103:' We’re fast. We’re free. And we’re the first decentralized crypto platform with global fiat gateways. You can trade bitcoin for Euros for Chinese Yuan on foxtrex. That’s not possible anywhere else. Trading is totaly free, no catch. On foxtrex you trade directly with other traders. There’s no one in the middle. You always have sole control of your assets. Start trading today',
+    b103:'We’re fast. We’re free. And we’re the most famous decentralized crypto platform with global fiat gateway. You can trade ripples, lumens or bitcoins for Euros for Chinese Yuan on ripplefox. That’s not possible anywhere else. Trading is totaly free. And you trade directly with other traders. There’s no one in the middle. You always have sole control of your assets. Start trading today.',
     b104:'News',
     b105:'Ultiledger is coming!',
     b106:'Read More »',
