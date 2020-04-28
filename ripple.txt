@@ -2,6 +2,7 @@
 CNY rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 XLM rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 ULT rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+USD rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 
 [domain]
 foxcny.com
