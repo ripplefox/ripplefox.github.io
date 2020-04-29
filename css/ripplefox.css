@@ -309,6 +309,18 @@ section#stzl .item:hover img {
     padding: 0 0 20px 0;
     color: #555;
 }
+
+#desktop-menu>li {
+	line-height: 70px;
+	vertical-align: middle;
+}
+
+#desktop-menu li img {
+	vertical-align: middle;
+}
+
+
+
 #newsbody #desktop-menu>li>a,
 #newsbody #mobile-menu-button{
 	color: black;
