@@ -475,3 +475,50 @@ section#stzl .item:hover img {
 		margin: 40px auto 0;
 	}
 }
+
+.bg-footer{
+	background-color: #1175B6;
+  background-image: linear-gradient(to right, #2AB287 0%, #1175B6 100%);
+}
+.consensus-footer,
+.consensus-footer span{
+	color: white !important;
+}
+
+.footer-title{
+	font-size: 16px;
+	margin-bottom: 5px !important;
+}
+
+.consensus-footer-left .f-title{
+	font-size: 20px;
+	font-weight: bold;
+}
+.consensus-footer-left .f-sub-title{
+	font-size: 14px;	
+	margin: 10px 0;
+}
+.consensus-footer-left .f-extra{
+	font-size: 13px;
+}
+.consensus-footer-left .f-extra .i-wrapper{
+	width: 28px !important;
+	text-align: left;
+	display: inline-block;
+}
+
+.white-ul li {
+  padding: 0 !important;
+  border-bottom: none !important;
+  display: block;
+}
+
+.white-ul a{
+	margin: 0 !important;
+}
+.widget .widget-title{
+	border-bottom: 1px solid rgba(255,255,255,.5);
+}
+.foot-hr{
+	border-top: 1px solid rgba(255,255,255,.5);
+}
