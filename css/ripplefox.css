@@ -4,9 +4,15 @@ html,body,div{
 	letter-spacing: 1.8px;
 	line-height: 20px;
 }
+.pd {
+	padding: 15px;
+}
 .c-white{
-	color: white;
-}      
+	color: white !important;
+}
+.a-center{
+	text-align: center;
+}
 .aligh-left{
 	text-align: left;
 }
@@ -164,6 +170,20 @@ section#stzl .item:hover img {
 .icon-holder img{
 	margin: 30px auto;
 }
+
+#partner {
+	background: #F5FAFC;
+}
+.partner-logo {
+	display: block;
+	height: 100px;
+}
+
+.bg-stcj {
+    background-color: #1175B6;
+    background-image: linear-gradient(to bottom, #12254f 0%, #1175B6 40%, #2AB287 85%);
+}
+
 #ULT{
 	background: url('../images/ULT-bg.png');
 	background-size: cover;
@@ -193,9 +213,7 @@ section#stzl .item:hover img {
 	padding-top: 10px;
 	white-space: nowrap;
 }
-#stcj{
-	background: #F5FAFC;
-}
+
 .fs12{
 	font-size: 12px !important;
 }
