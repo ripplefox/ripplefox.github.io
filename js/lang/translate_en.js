@@ -115,5 +115,7 @@ var translate_en = {
     f403:'Stellar: 676552869',
     f404:'ULT: 829852556',
     f405:'IPFS: 196561940',
+    f501:'Market',
+    f502:'Statistics',
     end:''
 }

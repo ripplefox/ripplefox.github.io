@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="瑞狐网关,瑞波币,瑞波支付,federation,支付宝桥" />
+	<meta name="description" content="瑞狐网关是一个基于Ultiledger,Ripple,Stellar的网关，锚点，端口。瑞狐是实现信用流通，资产流通，价值流通的实践者。">
+	<meta name="author" content="ripplefox">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/img/favicon.ico">
+
+
+    <title>RippleFox Market</title>
+	
+	<style type="text/css">
+		div.unstyledTable { border: 1px solid #999999; }
+		.divTable.unstyledTable .divTableCell, .divTable.unstyledTable .divTableHead { }
+		.divTable.unstyledTable .divTableHeading { background: #DDDDDD; }
+		.divTable.unstyledTable .divTableHeading .divTableHead { font-weight: bold; }
+		.unstyledTable .tableFootStyle { font-weight: bold; }
+
+		.divTable{ display: table; }
+		.divTableRow { display: table-row; }
+		.divTableHeading { display: table-header-group;}
+		.divTableCell, .divTableHead { display: table-cell; border: 1px solid #999999; padding: 3px 10px;}
+		.divTableHeading { display: table-header-group;}
+		.divTableFoot { display: table-footer-group;}
+		.divTableBody { display: table-row-group;}
+	</style>
+
+</head>
+
+<body style="padding: 15px;">
+	<p><a href="#" id="get-data">Refresh the market detail</a></p>
+    
+    <div class="divTable unstyledTable">
+    	<div class="divTableHeading">
+		<div class="divTableRow">
+			<div class="divTableHead">Pair</div>
+			<div class="divTableHead">Base Currency</div>
+			<div class="divTableHead">Base Volume</div>
+			<div class="divTableHead">Close Price (USD)</div>
+			<div class="divTableHead">Close Price</div>
+			<div class="divTableHead">High Price</div>
+			<div class="divTableHead">Low Price</div>
+		</div>
+	</div>
+    	<div id="show-data" class="divTableBody"> </div>
+    </div>
+    
+    <p>The api url: <a target="_blank" href="https://ripplefox.com/api/v2/exchanges">https://ripplefox.com/api/v2/exchanges</a></p>
+    
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    function update() {
+      var showData = $('#show-data');
+
+      $.getJSON('https://ripplefox.com/api/v2/exchanges', function (result) {
+        console.log(result);
+
+        showData.empty();
+        
+        
+        for (var pair in result.data) {
+          var mkt = result.data[pair];
+          var items = [];
+          items.push(pair, mkt.base_currency, mkt.base_volume, mkt.price_in_usd, mkt.close, mkt.high, mkt.low);
+          var content = '<div class="divTableCell">' + items.join('</div><div class="divTableCell">') + '</div>';
+          var row = $('<div class="divTableRow"/>').html(content);
+          showData.append(row);
+        }
+      });
+
+      showData.html('<div>Loading maket data ...</div>');
+    }
+    
+    $(document).ready(function () {
+      $('#get-data').click(function () {
+        update();
+      });
+    });
+    
+    update();
+    </script>
+</body>
+</html>
