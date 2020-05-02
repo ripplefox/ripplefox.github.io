@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html ng-app="foxhome">
+<head>
+	<title>Ripplefox Gateway</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="瑞狐网关,瑞波币,恒星币,Ripple,Stellar" />
+	<meta name="description" content="瑞狐网关是一个基于Ripple的网关、做市商。可以交易瑞波币XRP、恒星币XLM、比特币BTC、USDT等电子货币。">
+	<meta name="author" content="ripplefox">
+	
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../../css/navbar-fixed-top.css"	rel="stylesheet">
+	<link href="../../css/cny-page.css" rel="stylesheet">
+		
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body style="padding-top: 50px;" class="main_bg">
+	<!-- 导航条 >>> -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button id="menu-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="/"><img src="../../images/logo_ripplefox.png" style="height:50px"></a>
+			</div>
+			<div id="menu" class="navbar-collapse collapse" ng-controller="LangCtrl">
+					<!--  <ul class="nav navbar-nav">
+						<li class=active >
+							<a href="/str"><i class="icon-home"></i> XLM Gateway</a></li>
+						<li class= >
+							<a href="/util/rippleTag"><i class="icon-upload-alt"></i> Withdraw</a></li>
+						<li class= >
+							<a href="/util/stellarTag"><i class="icon-download-alt"></i> Deposit</a></li>
+						<li class= >
+							<a href="/util/hwl"><i class="icon-list-alt"></i> History</a></li>
+					</ul> -->
+           <ul class="nav navbar-nav navbar-right" style="margin-right: 5px">
+		         	<li>
+		         			<a href="javascript:" ng-click="changeLanguage('en')"><img src="../../images/english.svg" width="32px" title="English" alt="English"></a>
+		         	</li>
+		         	<li>
+		         			<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
+							</li>
+           </ul>
+			</div>
+			
+		</div>
+	</div>
+	<!-- 导航条<<< -->
+	
+	<div class="jumbotron gateway-bg">
+		<div class="container">
+			<h1 translate="r201">瑞狐网关</h1>
+			<h2 translate="r202">瑞波里的价值中转站</h2>
+			<h2 translate="r203">沟通瑞波与其他区块链的桥梁</h2>
+		</div>
+	</div>
+
+	<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-12 col-lg-12 ">
+			<div class="thumbnail">
+	          	<div class="color-brand-success caption">
+	          		<h3 translate="r301">使用瑞波请认准瑞狐网关</h3>
+	          		<h3 translate="r302">rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y</h3>
+	          		<h3 translate="r303">添加网关信任后，你就打开了瑞波的大门</h3>
+	          	</div>
+          	</div>
+        </div>
+	</div>
+	<div class="row">
+      	<div class="col-sm-6 col-md-4 col-lg-3 ">
+          <div class="thumbnail">
+          	<div class="color-brand-grey tile">
+          		<img src="../../images/coin/fox.png" width="55px">
+          	</div>
+            <div class="caption">
+              <h3>CNYT</h3>
+              <p>
+              	瑞波群: 703611153 
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-3 ">
+          <div class="thumbnail">
+          	<div class="color-brand-grey tile">
+          		<img src="../../images/coin/usdt.svg" width="50px">
+          	</div>
+            <div class="caption">
+              <h3>USDT</h3>
+              <p>
+              	瑞波群: 703611153
+              </p>
+            </div>
+          </div>
+        </div>
+
+       	<div class="col-sm-6 col-md-4 col-lg-3 ">
+          <div class="thumbnail">
+          	<div class="color-brand-grey tile">
+          		  <img src="../../images/coin/xlm.png" width="50px">
+          	</div>
+            <div class="caption">
+              <h3>XLM - Stellar Lumens</h3>
+              <p>
+              	自动充提
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4 col-lg-3 ">
+          <div class="thumbnail">
+          	<div class="color-brand-grey tile">
+          		<img src="../../images/coin/ult.png" width="45px">
+          	</div>
+            <div class="caption">
+              <h3>ULT - Ultiledger</h3>
+              <p>
+              	ULT群: 829852556
+              </p>
+            </div>
+          </div>
+        </div>
+		</div>
+	
+	</div>
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; RippleFox 2020. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.2/angular-translate.min.js"></script>
+		<script src="../../js/lang/translate_cn.js"></script>
+		<script src="../../js/lang/translate_en.js"></script>
+		<script src="../../js/app.js"></script>
+</body>
+</html>

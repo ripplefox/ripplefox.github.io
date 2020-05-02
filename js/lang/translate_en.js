@@ -81,5 +81,11 @@ var translate_en = {
     e404:'You can send your money to everywhere.',
     e405:'Open your wallet and start to use the federation protocol',
     e501:'Begin to use RippleFox bridge',
+    r201:'RippleFox',
+    r202:'A gateway in Ripple',
+    r203:'The bridge between Ripple and other blockchains',
+    r301:'You cannot deposit/accept the fund unless you add a trustline.',
+    r302:'rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y',
+    r303:'Enjoy the trading in Ripple.',
     end:''
 }
