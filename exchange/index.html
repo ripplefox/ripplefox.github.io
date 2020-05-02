@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation" ng-controller="LangCtrl">
         <div class="container topnav">
@@ -35,23 +34,19 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 5px">
                     <li class="active">
                         <a href="#" translate="e101">瑞波网关</a>
                     </li>
                     <li>
                         <a href="#" translate="e102">恒星锚点</a>
                     </li>
-                    <li class="dropdown">
-						          		<ul class="nav navbar-nav navbar-right" role="menu">
-						            		<li>
-						            			<a href="javascript:" ng-click="changeLanguage('en')"><img src="../images/english.svg" width="32px" title="English" alt="English"></a>
-						            		</li>
-						            		<li>
-						            			<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
-														</li>
-						          		</ul>
-						        </li>
+		            		<li>
+		            			<a href="javascript:" ng-click="changeLanguage('en')"><img src="../images/english.svg" width="32px" title="English" alt="English"></a>
+		            		</li>
+		            		<li>
+		            			<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
+										</li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
