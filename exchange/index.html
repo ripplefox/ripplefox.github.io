@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html ng-app="foxhome">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="瑞狐网关,瑞波币,XRP,瑞波支付,federation,联邦协议" />
+	<meta name="description" content="瑞狐网关是一个基于Ripple,Stellar的瑞波网关和恒星锚点，提供数字货币的入口。">
+	<meta name="author" content="ripplefox">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+  <title>Ripplefox Decentralized Exchange</title>
+	
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">   
+  <link href="../css/cny-page.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation" ng-controller="LangCtrl">
+        <div class="container topnav">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/"><img src="../images/logo_ripplefox.png" style="height:50px"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active">
+                        <a href="#" translate="e101">瑞波网关</a>
+                    </li>
+                    <li>
+                        <a href="#" translate="e102">恒星锚点</a>
+                    </li>
+                    <li class="dropdown">
+						          		<ul class="nav navbar-nav navbar-right" role="menu">
+						            		<li>
+						            			<a href="javascript:" ng-click="changeLanguage('en')"><img src="../images/english.svg" width="32px" title="English" alt="English"></a>
+						            		</li>
+						            		<li>
+						            			<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
+														</li>
+						          		</ul>
+						        </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+
+    <!-- Header -->
+    <a name="about"></a>
+    <div class="anchor-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1 translate="e201">The Beauty of Payment</h1>
+                        <h3 translate="e202">Fast, Simple and Secure</h3>
+                        <hr class="anchor-divider">
+                        <h4 translate="e203">Supported by RippleFox</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+
+	<a  name="services"></a>
+    <div class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading" translate="e301">信任的中心</h2>
+                    <p class="lead" translate="e302">瑞狐是瑞波里的网关</p>
+										<p class="lead" translate="e303">瑞狐是恒星里的锚点</p>
+										<p class="lead" translate="e304">我们是区块链里的价值中转站</p>
+										<p class="lead" translate="e305">在钱包里添加RippleFox，就可以体验区块链上的价值流转。</p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="../images/exchange/anchor.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.content-section-a -->
+    
+    <div class="content-section-b">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading" translate="e401">去中心化的支付</h2>
+                    <p class="lead" translate="e402">你可以在区块链上交易；</p>
+										<p class="lead" translate="e403">你可以在区块链上转账；</p>
+										<p class="lead" translate="e404">你可以把资产发送给全球任何地方。</p>
+										<p class="lead" translate="e405">打开钱包，使用联邦协议进行发送吧。</p>
+                </div>
+                <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+                    <img class="img-responsive" src="../images/exchange/china.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /.content-section-b -->
+    <!-- /.content-section-b -->
+
+    <div class="banner">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6">
+                </div>
+                <div class="col-lg-6">
+                    <h2 translate="e501">开始体验支付之美</h2>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; RippleFox 2020. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.2/angular-translate.min.js"></script>
+		<script src="../js/lang/translate_cn.js"></script>
+		<script src="../js/lang/translate_en.js"></script>
+		<script src="../js/app.js"></script>
+</body>
+
+</html>
