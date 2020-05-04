@@ -20,7 +20,7 @@ r3G1JyRpwMsVaY21QkwE9g3zVuLonWL3qR
 rpWKyqptwSMyexGitY1ukR2Y4rbpzassQR
 
 [federation_url]
-https://foxcny.com/bridge
+https://ripplefox.com/bridge
 
 
 [fees]
