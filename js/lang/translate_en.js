@@ -102,5 +102,12 @@ var translate_en = {
     xlm501:'Withdraw XLM using federation protocol',
     xlm502:'Send at least 20 XLM to xlm@ripplefox.com. So easy! Please use the "Foxlet for Ripple" client which support the federation protocol.',
     xlm503:'Usually it takes less than 10 minutes to process the fund. However, sometimes it would take 24 hours. You can contact support@ripplefox.com if any issue.',
+    s201:'RippleFox',
+    s202:'An anchor in Stellar',
+    s203:'The bridge between Stellar and other blockchains',
+    s301:'Add the trustlines of RippleFox in Stellar client.',
+    s302:'Enjoy the trading in Stellar',
+    s303:'Enjoy the decentralized exchange',
+    s401:'QQ group: 676552869',
     end:''
 }

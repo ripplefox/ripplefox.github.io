@@ -146,6 +146,12 @@ body {font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;}
     background: url(../images/exchange/gateway-bg.jpg) no-repeat center center;
     background-size: cover;
 }
+
+.anchor-bg {
+    color: #f8f8f8;
+    background: url(../images/exchange/rocket-bg.jpg) no-repeat center center;
+    background-size: cover;
+}
   
 .banner h2 {
     margin: 0;
