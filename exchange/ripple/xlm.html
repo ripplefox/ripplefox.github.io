@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html ng-app="foxhome">
+<head>
+	<title>XLM Gateway</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="瑞狐网关,瑞波币,恒星币,Ripple,Stellar" />
+	<meta name="description" content="瑞狐网关是一个基于Ripple的网关、做市商。可以交易瑞波币XRP、恒星币XLM、比特币BTC、USDT等电子货币。">
+	<meta name="author" content="ripplefox">
+	
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../../css/navbar-fixed-top.css"	rel="stylesheet">
+	<link href="../../css/cny-page.css" rel="stylesheet">
+		
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body style="padding-top: 50px;" class="main_bg">
+	<!-- 导航条 >>> -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button id="menu-button" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="/"><img src="../../images/logo_ripplefox.png" style="height:50px"></a>
+			</div>
+			<div id="menu" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav" ng-init="mode='deposit'">
+						<li ng-class="{active:mode=='deposit'}">
+							<a href="javascript:" ng-click="mode='deposit'"><i class="icon-upload-alt"></i> {{'deposit' | translate}}</a>
+						</li>
+						<li ng-class="{active:mode=='withdraw'}">
+							<a href="javascript:" ng-click="mode='withdraw'"><i class="icon-download-alt"></i> {{'withdraw' | translate}}</a>
+						</li>
+					</ul>
+           <ul class="nav navbar-nav navbar-right" style="margin-right: 5px" ng-controller="LangCtrl">
+		         	<li>
+		         			<a href="javascript:" ng-click="changeLanguage('en')"><img src="../../images/english.svg" width="32px" title="English" alt="English"></a>
+		         	</li>
+		         	<li>
+		         			<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
+							</li>
+           </ul>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="container" style="padding-top: 50px;">
+				<!-- 充值 -->
+				<section ng-show="mode=='deposit'">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title" translate="xlm201">添加对XLM恒星币的信任</h3>
+							</div>
+							<div class="panel-body">
+								<p translate="xlm202">
+									在充值之前，你应该先添加对恒星的信任。货币代码：XLM，网关地址：rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y。
+								</p>
+								<p>
+									<span translate="xlm203">找到“网关”菜单，点击授信XLM即可。</span>
+									<a href="https://download.ripplefox.com" target="_blank" translate="e502">钱包下载</a>
+								</p>
+								<p>
+									<img class="img-thumbnail img-responsive" src="../../images/exchange/xlmtrust.png">
+								</p>
+							</div>
+					  </div>
+					
+			  		<div class="panel panel-default">
+						  <div class="panel-heading"><h3 class="panel-title" translate="xlm301">使用memo-id进行充值</h3></div>
+						  <div class="panel-body">
+						    <div><span class="help-block"></span></div>
+				    		<form id = "form1" class="form-inline" role="form" action="/#" method="post">
+							  	<div class="form-group" id="fg1">
+							    <label class="sr-only" for="walletId" translate="xlm302">瑞波地址</label>
+								    <input type="text" size="50px" class="form-control" id="walletId"  name="walletId" placeholder="Ripple Wallet Full Address">
+								  </div>
+								  <button type="button" id="button1" data-loading-text="Loading..." class="btn btn-primary">
+									 <span translate="xlm303">获得</span> memo-id
+								  </button>
+								</form>
+								<p>
+									<ul>
+										<li><span translate="xlm304">发送至少20 XLM到</span><span class='text-danger'><strong>GCLDH6L6FBLTD3H3B23D6TIFVVTFBLZMNBC3ZOI6FGI5GPQROL4FOXIN</strong></span><span translate="xlm305">。附加memo-id</span> <span class='text-danger' id="memoid"></span></li>
+										<li translate="xlm306">有问题可到QQ群或邮件联系support@ripplefox.com。</li>
+									</ul>
+								</p>
+						  </div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title" translate="xlm401">使用联邦协议进行充值</h3>
+							</div>
+							<div class="panel-body">
+								<p translate="xlm402">
+									在恒星钱包中，发送时，填入“瑞波地址*ripplefox.com”。
+								</p>
+								<p>
+									<img class="img-thumbnail img-responsive" src="../../images/exchange/xlmdeposit.png">
+								</p>
+							</div>
+					  </div>
+			  </section>
+			  <!-- 充值 -->
+			  <!-- 提现 -->
+				<section ng-show="mode=='withdraw'">
+					<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title" translate="xlm501">使用联邦协议提现</h3>
+								</div>
+								<div class="panel-body">
+									<p>
+										<span translate="xlm502">点击“发送”菜单，填入“xlm@ripplefox.com"即可。请使用最新的瑞波钱包。</span>
+										<a href="https://download.ripplefox.com" target="_blank" translate="e502">钱包下载</a>
+									</p>
+									<p translate="xlm503">
+										处理时间通常少于10分钟，特殊情况24小时。有问题可联系support@ripplefox.com。
+									</p>
+									<p>
+										<img class="img-thumbnail img-responsive" src="../../images/exchange/xlmwithdraw.png">
+									</p>
+								</div>
+						  </div>
+				</section>
+				<!-- 提现 -->
+	</div>
+	
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; RippleFox 2020. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	  <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+		$('#button1').click(function() {
+			var btn = $(this);
+			btn.button('loading');
+			
+			var walletId = $("input[name='walletId']").val().trim();
+			if(!ripple.UInt160.is_valid(walletId)){
+				$("#fg1").addClass('has-error');
+				$(".help-block").html("<div class='alert alert-warning' role='alert'>Invalid Ripple address, please input the correct one!</div>");
+				btn.button('reset');
+				return;
+			}
+			
+			$.when($.ajax("https://ripplefox.com/data/ripple/" + walletId),
+				   $.ajax("https://ripplefox.com/data/tag/" + walletId)).done(function(data, data2){
+				if (data[0].error) {
+					$(".help-block").html("<div class='alert alert-warning' role='alert'>Network error, please retry it later.</div>");
+					return;
+				}
+				var limit = 0, bal = 0;
+				var lines = data[0].result.lines;
+				for (var i=0; i<lines.length; i++){
+					var line = lines[i];
+					if (line.currency == 'XLM' && line.account == 'rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y') {
+						limit = parseFloat(line.limit);
+						bal = parseFloat(line.balance);
+					}
+				}
+				
+				var trust = limit - bal > 0 ? limit - bal : 0;
+				var tag = data2[0].tag;
+				if (trust == 0) {
+					$("#fg1").addClass('has-error');
+					$(".help-block").html("<div class='alert alert-warning' role='alert'>No enough trust, please add the trustline!</div>");
+				} else if (trust < 1000000){
+					$(".help-block").html("<div class='alert alert-warning' role='alert'>Memo-Id: " + tag + ". You can deposit at most " + trust + " XLM</div>");
+					$("#memoid").html(tag);
+				} else {
+					$(".help-block").html("<div class='alert alert-warning' role='alert'>Memo-Id: " + tag + "</div>");
+					$("#memoid").html(tag);
+				}
+				
+			}).fail(function(err){
+				$(".help-block").html("<div class='alert alert-warning' role='alert'>Network error, please retry it later.</div>");
+			}).always(function(){
+				btn.button('reset');
+			});
+
+			//$("#form1").submit();
+		});
+        
+    </script>  
+	  <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.2/angular-translate.min.js"></script>
+		<script src="../../js/lib/ripple-0.7.36-min.js"></script>
+		<script src="../../js/lang/translate_cn.js"></script>
+		<script src="../../js/lang/translate_en.js"></script>
+		<script src="../../js/app.js"></script>
+</body>
+</html>
