@@ -37,6 +37,9 @@
 						<li ng-class="{active:mode=='withdraw'}">
 							<a href="javascript:" ng-click="mode='withdraw'"><i class="icon-download-alt"></i> {{'withdraw' | translate}}</a>
 						</li>
+						<li ng-class="{active:mode=='history'}">
+							<a href="javascript:" ng-click="mode='history'"><i class="icon-download-alt"></i> {{'history' | translate}}</a>
+						</li>
 					</ul>
            <ul class="nav navbar-nav navbar-right" style="margin-right: 5px" ng-controller="LangCtrl">
 		         	<li>
@@ -130,6 +133,63 @@
 						  </div>
 				</section>
 				<!-- 提现 -->
+				<!-- 历史 -->
+				<section ng-show="mode=='history'" ng-controller="XlmGatewayCtrl">
+					<div class="col-sm-6 col-md-8 col-lg-6 ">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr class="info">
+									<th colspan="4" style="text-align: center" translate="deposit">充值</th>
+								</tr>
+								<tr class="info">
+									<th translate="stellarwallet">恒星钱包</th>
+									<th translate="memo">备注</th>
+									<th translate="requesttime">请求时间</th>
+									<th translate="status">状态</th>
+								</tr>
+							</thead>
+							<tbody>
+									<tr ng-class="{'success':item.status=='complete', 
+																 'danger':item.status=='invalidAccount' || item.status=='insufficientTrust',
+																 'warning':item.status=='pending' || item.status=='processing'}" 
+										  ng-repeat="item in deposit">
+										<td>{{item.counterparty | shortaddress}}</td>
+										<td>{{item.tag}}</td>
+										<td>{{item.tx_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{item.status | translate}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-sm-6 col-md-8 col-lg-6 ">
+						<table class="table table-hover table-bordered">
+							<thead>
+								<tr class="info">
+									<th colspan="4" style="text-align: center" translate="withdraw">提现</th>
+								</tr>
+								<tr class="info">
+									<th translate="ripplewallet">瑞波钱包</th>
+									<th translate="tag">标签</th>
+									<th translate="requesttime">请求时间</th>
+									<th translate="status">状态</th>
+								</tr>
+							</thead>
+							<tbody>
+									<tr ng-class="{'success':item.status=='complete', 
+																 'danger':item.status=='invalidAccount' || item.status=='insufficientTrust',
+																 'warning':item.status=='pending' || item.status=='processing'}"
+										  ng-repeat="item in withdraw">
+										<td>{{item.counterparty | shortaddress}}</td>
+										<td>{{item.tag}}</td>
+										<td>{{item.tx_date | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+										<td>{{item.status | translate}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+				</section>
+				<!-- 历史 -->
+				
 	</div>
 	
 
