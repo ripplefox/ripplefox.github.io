@@ -12,8 +12,9 @@ ACCOUNTS=[
 [[CURRENCIES]]
 code="CNY"
 issuer="GAREELUB43IRHWEASCFBLKHURCGMHE5IF6XSE7EXDLACYHGRHM43RFOX"
+image="https://ripplefox.com/images/ripplefox.png"
 
 [[CURRENCIES]]
 code="ULT"
 issuer="GC76RMFNNXBFDSJRBXCABWLHXDK4ITVQSMI56DC2ZJVC3YOLLPCKKULT"
-image="https://foxtrex.com/images/ult_100.png"
+image="https://ripplefox.com/images/ult_100.png"
