@@ -52,6 +52,7 @@ var translate_en = {
     f204:'Mobile App',
     f301:'Links',
     f302:'ULT BBS',
+    f3021:'Stellar Chat Forum',
     f303:'Ultiledger',
     f304:'Ripple Charts',
     f305:'',
