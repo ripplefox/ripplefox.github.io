@@ -226,10 +226,10 @@
 					return;
 				}
 				var limit = 0, bal = 0;
-				var lines = data[0].result.lines;
+				var lines = data[0].lines;
 				for (var i=0; i<lines.length; i++){
 					var line = lines[i];
-					if (line.currency == 'XLM' && line.account == 'rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y') {
+					if (line.currency == 'XLM' && line.issuer == 'rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y') {
 						limit = parseFloat(line.limit);
 						bal = parseFloat(line.balance);
 					}
