@@ -3,6 +3,7 @@ CNY rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 XLM rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 ULT rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 USD rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
+ETH rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 
 [domain]
 foxcny.com
@@ -12,12 +13,9 @@ rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y
 
 [hotwallets]
 rLSnkKvMfPD9abLoQFxQJMYyZqJcsqkL3o
-
-# XLM
-r3G1JyRpwMsVaY21QkwE9g3zVuLonWL3qR
-
-# ripple2stellar
+rPcQaiyDxMwLr7Q9eFmn5VnVx2RN57MUmN
 rpWKyqptwSMyexGitY1ukR2Y4rbpzassQR
+r4Co7tUpNxbVLH2WnPHCYBnmBzvVa65Eth
 
 [federation_url]
 https://ripplefox.com/bridge
@@ -25,4 +23,5 @@ https://ripplefox.com/bridge
 
 [fees]
 Deposit: 0
-IOU transfer: 0
+Withdraw: 0.2% ~ 0.3%
+Transfer: 0

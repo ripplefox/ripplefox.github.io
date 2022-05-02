@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app="foxhome">
+<head>
+	<title>ETH Gateway</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="瑞狐网关,瑞波币,恒星币,Ripple,Stellar" />
+	<meta name="description" content="瑞狐网关是一个基于Ripple的网关、做市商。可以交易瑞波币XRP、恒星币XLM、以太坊ETH、USDT等电子货币。">
+	<meta name="author" content="ripplefox">
+	
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="../../css/navbar-fixed-top.css"	rel="stylesheet">
+	<link href="../../css/cny-page.css" rel="stylesheet">
+		
+	<link rel="shortcut icon" href="/favicon.ico">
+</head>
+
+<body style="padding-top: 50px;" class="main_bg">
+	<!-- 导航条 >>> -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">				
+				<a href="/"><img src="../../images/logo_ripplefox.png" style="height:50px"></a>
+			</div>
+			<div id="menu" class="navbar-collapse collapse">
+	           <ul class="nav navbar-nav navbar-right" style="margin-right: 5px" ng-controller="LangCtrl">
+		         	<li>
+		        		<a href="javascript:" ng-click="changeLanguage('en')"><img src="../../images/english.svg" width="32px" title="English" alt="English"></a>
+		         	</li>
+		         	<li>
+		        		<a href="javascript:" ng-click="changeLanguage('cn')" ><img src="../../images/chinese.svg" width="28px" title="中文" alt="中文"></a>
+					</li>
+        		</ul>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="container" style="padding-top: 50px;">
+				<section>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title" translate="foxlet1">Foxlet Client</h3>
+						</div>
+						<div class="panel-body">
+							<p translate="foxlet2">
+								Foxlet钱包将私钥以加密文件的形式存储在您的电脑上，它本身不存储任何用户信息。建议仅在个人电脑上使用。
+							</p>
+							<p>
+								<span translate="foxlet3">钱包是开源的，你可以自行编译。</span>
+								<a href="https://github.com/ripplefox/ripplewallet/releases" target="_blank" translate="">Github Releases</a>
+							</p>
+							<p>
+								<span translate="foxlet4">更简单的方式是访问网页版。</span>
+								<a href="https://trade.ripplefox.com" target="_blank" translate="">https://trade.ripplefox.com</a>
+							</p>
+						</div>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title" translate="deposit">充值</h3>
+						</div>
+						<div class="panel-body">
+							<p translate="usd_trust">
+								在充值之前，你应该先添加对USDT的信任。货币代码：USD，网关地址：rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y。
+							</p>
+							<p>
+								<span translate="foxlet11">在Foxlet钱包里，找到“网关”菜单，点击授信相应的代码即可。</span>
+							</p>
+							<p>
+								<img class="img-thumbnail img-responsive" src="../../images/exchange/add_trust.png">
+							</p>
+							<p translate="foxlet12">
+								回到余额界面，在对应的币种里，可以看到“充值”的菜单，点击即会生成充值地址。
+							</p>
+							<p>
+								API: <pre>https://ripplefox.com/deposit?currency=USD&network=ripple&lang=en&address=YOUR_RIPPLE_ADDRESS</pre>
+							</p>
+						</div>
+					</div>
+					
+			  		<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title" translate="withdraw">提现</h3>
+						</div>
+						<div class="panel-body">
+							<p translate="foxlet21">
+								在余额界面，找到对应的币种里，可以看到“提现”的菜单，点击会跳转到“发送”界面。
+							</p>
+							<p>
+								<img class="img-thumbnail img-responsive" src="../../images/exchange/balance.png">
+							</p>
+							<p>
+								<span translate="foxlet22">界面使用支付协议生成，填入提现地址和金额，会自动计算手续费。</span>
+							</p>
+							<p translate="foxlet23">
+								提现手续费为0.2%，发送后即完成提现。如24小时内未到账，请联系support@ripplefox.com
+							</p>
+							<p>
+								<span translate="foxlet24">使用RippleAPI提现时，必须提供以下memos。</span>
+								<pre>payment.memos=[{"type":"network","format":"text","data":"tron"},{"type":"address","format":"text","data":"YOUR_TRC20_ADDRESS"}]</pre>
+							</p>
+						</div>
+					</div>
+			  </section>
+				
+	</div>
+	
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright text-muted small">Copyright &copy; RippleFox 2022. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+	<script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/angular-translate/2.18.2/angular-translate.min.js"></script>
+	<script src="../../js/lang/translate_cn.js"></script>
+	<script src="../../js/lang/translate_en.js"></script>
+	<script src="../../js/app.js"></script>
+</body>
+</html>
