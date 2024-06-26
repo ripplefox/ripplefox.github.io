@@ -1,0 +1,21 @@
+XRC20_SERVER="https://ripplefox.com/bridge"
+DEPOSIT_SERVER="https://ripplefox.com/deposit"
+
+ACCOUNTS=[
+	"rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y"
+]
+
+[[CURRENCIES]]
+code="CNY"
+issuer="rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y"
+image="https://ripplefox.com/images/ripplefox.png"
+
+[[CURRENCIES]]
+code="XLM"
+issuer="rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y"
+image="https://ripplefox.com/images/coin/xlm.png"
+
+[[CURRENCIES]]
+code="ETH"
+issuer="rKiCet8SdvWxPXnAgYarFUXMh1zCPz432Y"
+image="https://ripplefox.com/images/coin/eth.svg"
