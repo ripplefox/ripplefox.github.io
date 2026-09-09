@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <meta name="description" content="RippleFox Dex — 始于2014年的去中心化交易所." />
+  <title>RippleFox</title>
+  <style>
+    /* =========================================================
+       Design tokens
+       ========================================================= */
+    :root {
+      --bg-primary:    #0b0b0f;
+      --bg-elevated:   #131318;
+      --text-primary:  #ffffff;
+      --text-secondary:#86868b;
+      --text-muted:    #5a5a63;
+      --accent:        #00ff66;
+      --accent-dim:    #00cc52;
+      --accent-soft:   rgba(0, 255, 102, 0.12);
+      --accent-glow:   rgba(0, 255, 102, 0.35);
+      --border:        rgba(255, 255, 255, 0.08);
+      --border-hover:  rgba(255, 255, 255, 0.18);
+      --ease:          cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
+      --font-sans:     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                       "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei",
+                       sans-serif;
+    }
+
+    /* =========================================================
+       Reset & base
+       ========================================================= */
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    /* Ambient background — subtle gradient + grid mesh */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 45% at 50% -10%, rgba(0, 255, 102, 0.10), transparent 60%),
+        radial-gradient(ellipse 50% 35% at 85% 20%, rgba(0, 255, 102, 0.04), transparent 60%);
+      pointer-events: none;
+      z-index: -2;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+      background-size: 64px 64px;
+      background-position: center top;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 75%);
+              mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 0%, transparent 75%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* =========================================================
+       Layout helpers
+       ========================================================= */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* =========================================================
+       Navbar
+       ========================================================= */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 0;
+      transition: padding 0.4s var(--ease-smooth),
+                  background-color 0.4s var(--ease-smooth),
+                  border-color 0.4s var(--ease-smooth),
+                  backdrop-filter 0.4s var(--ease-smooth);
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      padding: 14px 0;
+      background-color: rgba(11, 11, 15, 0.72);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+              backdrop-filter: saturate(180%) blur(18px);
+      border-bottom-color: var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      transition: opacity 0.2s var(--ease-smooth);
+    }
+    .logo:hover { opacity: 0.85; }
+    .logo-img {
+      height: 36px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.20));
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-menu a {
+      font-size: 14px;
+      font-weight: 450;
+      color: var(--text-secondary);
+      transition: color 0.2s var(--ease-smooth);
+      position: relative;
+    }
+    .nav-menu a:hover { color: var(--text-primary); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-smooth);
+      letter-spacing: 0.02em;
+    }
+    .lang-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--border-hover);
+    }
+    .lang-toggle .lang-active { color: var(--text-primary); }
+    .lang-toggle .lang-divider { color: var(--text-muted); }
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 140px 24px 80px;
+      text-align: center;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background-color: var(--bg-primary);
+      background-image:
+        linear-gradient(180deg, rgba(11,11,15,0.55) 0%, rgba(11,11,15,0.30) 40%, rgba(11,11,15,0.85) 100%),
+        url("images/bg.png");
+      background-size: cover, cover;
+      background-position: center, center;
+      background-repeat: no-repeat, no-repeat;
+    }
+
+    /* Particle canvas overlay */
+    .hero-particles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 2; }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      margin-bottom: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.02);
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeUp 0.7s var(--ease) 0.05s forwards;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-glow);
+      animation: pulse 2.2s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(44px, 8.4vw, 96px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      margin-bottom: 24px;
+      max-width: 14ch;
+    }
+
+    /* Word-by-word reveal (typewriter feel) */
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+      margin-right: 0.22em;
+    }
+    .hero-title .word:last-child { margin-right: 0; }
+    .hero-title .word.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(180deg, #ffffff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+              background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      font-style: italic;
+    }
+
+    .hero-title .cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.85em;
+      background: var(--accent);
+      margin-left: 6px;
+      vertical-align: baseline;
+      position: relative;
+      top: 0.06em;
+      opacity: 0;
+      animation: blink 1s steps(2, start) infinite;
+    }
+    .hero-title .cursor.is-in { opacity: 1; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 1.7vw, 18px);
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .hero-subtitle.is-in { opacity: 1; transform: translateY(0); }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .hero-cta.is-in { opacity: 1; transform: translateY(0); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.35s var(--ease-smooth),
+                  background-color 0.35s var(--ease-smooth),
+                  border-color 0.35s var(--ease-smooth),
+                  box-shadow 0.35s var(--ease-smooth),
+                  color 0.35s var(--ease-smooth);
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      transform: scale(1.045);
+      box-shadow:
+        0 0 0 1px rgba(0, 255, 102, 0.4),
+        0 0 28px var(--accent-glow),
+        0 0 60px rgba(0, 255, 102, 0.18);
+    }
+    .btn-primary:active { transform: scale(0.99); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--border-hover);
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+    }
+    .btn-ghost .arrow {
+      display: inline-block;
+      transition: transform 0.35s var(--ease-smooth);
+    }
+    .btn-ghost:hover .arrow { transform: translateX(4px); }
+
+    /* Subtle bottom flourish in hero */
+    .hero-foot {
+      margin-top: 96px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.9s var(--ease);
+    }
+    .hero-foot.is-in { opacity: 1; }
+    .hero-foot::before,
+    .hero-foot::after {
+      content: "";
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    /* =========================================================
+       Features
+       ========================================================= */
+    .features {
+      padding: 120px 24px;
+      position: relative;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 72px;
+    }
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: clamp(32px, 4.8vw, 56px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+    }
+    .section-subtitle {
+      font-size: clamp(15px, 1.6vw, 18px);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      position: relative;
+      padding: 36px 30px 34px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0) 60%),
+        rgba(255, 255, 255, 0.01);
+      transition: transform 0.45s var(--ease-smooth),
+                  border-color 0.45s var(--ease-smooth),
+                  background 0.45s var(--ease-smooth),
+                  box-shadow 0.45s var(--ease-smooth);
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(400px 200px at var(--mx, 50%) var(--my, 0%), rgba(0, 255, 102, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.45s var(--ease-smooth);
+      pointer-events: none;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 60%),
+        rgba(255, 255, 255, 0.02);
+      box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.6),
+                  0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(0, 255, 102, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-title {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-desc {
+      font-size: 14.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-meta {
+      margin-top: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+    .footer {
+      padding: 48px 24px 40px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .footer-logo {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .footer-copy {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      transition: color 0.2s var(--ease-smooth);
+    }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    /* =========================================================
+       Animations
+       ========================================================= */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.45; transform: scale(0.85); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hero-title .word,
+      .hero-subtitle, .hero-cta, .hero-badge, .hero-foot {
+        opacity: 1 !important; transform: none !important;
+      }
+    }
+
+    /* =========================================================
+       Responsive
+       ========================================================= */
+    @media (max-width: 960px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .features { padding: 100px 24px; }
+    }
+
+    @media (max-width: 720px) {
+      .nav-menu { display: none; }
+      .hero { padding: 120px 24px 64px; min-height: auto; }
+      .hero-title { max-width: 100%; }
+      .features-grid { grid-template-columns: 1fr; gap: 14px; }
+      .features { padding: 80px 24px; }
+      .section-head { margin-bottom: 48px; }
+      .hero-foot { margin-top: 64px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <!-- =====================================================
+       Navbar
+       ===================================================== -->
+  <nav class="navbar" id="navbar" aria-label="Primary">
+    <div class="container nav-inner">
+      <a href="#" class="logo" aria-label="RippleFox Dex">
+        <img src="images/logo_ripplefox.png" alt="" class="logo-img" />
+        <span></span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="https://xrps.io/trade/" data-i18n="nav.trade">Trade</a></li>
+        <li><a href="https://xrpl.org/docs/concepts/tokens/decentralized-exchange" data-i18n="nav.docs">Docs</a>
+        <!-- <li><a href="#features" data-i18n="nav.liquidity">Liquidity</a></li>
+        <li><a href="#features" data-i18n="nav.security">Security</a></li>
+        </li> -->
+      </ul>
+
+      <div class="nav-right">
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lang-active" id="langActive">EN</span>
+          <span class="lang-divider">/</span>
+          <span id="langOther">中</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- =====================================================
+         Hero
+         ===================================================== -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <canvas class="hero-particles" id="heroParticles" aria-hidden="true"></canvas>
+      <div class="container hero-inner">
+        <div class="hero-badge">
+          <span class="dot" aria-hidden="true"></span>
+          <span data-i18n="hero.badge">Gateway on Ripple</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">
+          <span class="word" data-i18n="hero.word1">Trade</span>
+          <span class="word" data-i18n="hero.word2">at</span>
+          <span class="word" data-i18n="hero.word3">the</span>
+          <!-- <span class="word" data-i18n="hero.word4">speed</span>
+          <span class="word" data-i18n="hero.word5">of</span> -->
+          <span class="word accent" data-i18n="hero.word6">light.</span>
+          <span class="cursor" id="heroCursor" aria-hidden="true"></span>
+        </h1>
+
+        <p class="hero-subtitle" id="heroSubtitle" data-i18n="hero.subtitle">
+          RippleFox Dex — the next-generation exchange built for instant execution, deep liquidity, and zero compromise.
+        </p>
+
+        <!-- <div class="hero-cta" id="heroCta">
+          <a href="#" class="btn btn-primary" data-i18n="hero.ctaPrimary">Launch App</a>
+          <a href="#" class="btn btn-ghost">
+            <span data-i18n="hero.ctaSecondary">Read Docs</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div> 
+
+        <div class="hero-foot" id="heroFoot" aria-hidden="true">
+          <span data-i18n="hero.foot">Powered by intent-based architecture</span>
+        </div> -->
+      </div>
+    </section>
+
+    <!-- =====================================================
+         Features
+         ===================================================== 
+    <section class="features" id="features" aria-labelledby="featuresTitle">
+      <div class="container">
+        <header class="section-head">
+          <span class="section-eyebrow" data-i18n="features.eyebrow">Why RippleFox</span>
+          <h2 class="section-title" id="featuresTitle" data-i18n="features.title">
+            Built for traders who refuse to wait.
+          </h2>
+          <p class="section-subtitle" data-i18n="features.subtitle">
+            Three pillars that make RippleFox the fastest DEX in production.
+          </p>
+        </header>
+
+        <div class="features-grid">
+   
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L3 14h7l-1 8 11-14h-7l1-6z"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="features.card1.title">Sub-second Execution</h3>
+            <p class="feature-desc" data-i18n="features.card1.desc">
+              Orders settle in under 400ms. Our matching engine is engineered from the silicon up for raw throughput.
+            </p>
+            <span class="feature-meta" data-i18n="features.card1.meta">&lt; 400 ms latency</span>
+          </article>
+
+ 
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12c2.5-3 5-3 7.5 0S14.5 15 17 12s5-3 5-3"/>
+                <path d="M2 18c2.5-3 5-3 7.5 0S14.5 21 17 18s5-3 5-3"/>
+                <circle cx="20" cy="6" r="1.5" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="features.card2.title">Deep Cross-chain Liquidity</h3>
+            <p class="feature-desc" data-i18n="features.card2.desc">
+              Aggregated routing across 12 chains and 40+ venues. Best price, every time, with zero manual bridging.
+            </p>
+            <span class="feature-meta" data-i18n="features.card2.meta">12 chains · 40+ venues</span>
+          </article>
+
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.8"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.5l8 3.5v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3.5z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3 class="feature-title" data-i18n="features.card3.title">Zero-compromise Security</h3>
+            <p class="feature-desc" data-i18n="features.card3.desc">
+              Non-custodial by design. Audited by three top firms, with formal verification on every settlement path.
+            </p>
+            <span class="feature-meta" data-i18n="features.card3.meta">3 audits · formally verified</span>
+          </article>
+        </div>
+      </div>
+    </section>
+    -->
+
+  </main>
+
+  <!-- =====================================================
+       Footer
+       ===================================================== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">support@ripplefox.com</span>
+        <span class="footer-copy" data-i18n="footer.copy">© 2026 RippleFox Labs. All rights reserved.</span>
+      </div>
+<!--       <ul class="footer-links">
+        <li><a href="#" data-i18n="footer.twitter">Twitter</a></li>
+        <li><a href="#" data-i18n="footer.github">GitHub</a></li>
+        <li><a href="#" data-i18n="footer.discord">Discord</a></li>
+        <li><a href="#" data-i18n="footer.medium">Medium</a></li>
+      </ul> -->
+    </div>
+  </footer>
+
+  <!-- =====================================================
+       JavaScript — Vanilla, no deps
+       ===================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* -------------------------------------------------
+         1. Hero headline — word-by-word reveal (typewriter feel)
+         ------------------------------------------------- */
+      function initHeroReveal() {
+        var words  = document.querySelectorAll('.hero-title .word');
+        var cursor = document.getElementById('heroCursor');
+        var sub    = document.getElementById('heroSubtitle');
+        var cta    = document.getElementById('heroCta');
+        var foot   = document.getElementById('heroFoot');
+        var delay  = 220;   // initial delay (ms)
+        var step   = 90;    // per-word stagger (ms)
+
+        words.forEach(function (w, i) {
+          setTimeout(function () { w.classList.add('is-in'); }, delay + i * step);
+        });
+
+        // Show a blinking cursor right after the last word lands, then fade it.
+        var last = words.length;
+        setTimeout(function () {
+          if (cursor) cursor.classList.add('is-in');
+          setTimeout(function () { if (cursor) cursor.style.opacity = '0'; }, 900);
+        }, delay + last * step + 80);
+
+        setTimeout(function () { if (sub)  sub.classList.add('is-in'); }, delay + last * step + 120);
+        setTimeout(function () { if (cta)  cta.classList.add('is-in'); }, delay + last * step + 260);
+        setTimeout(function () { if (foot) foot.classList.add('is-in'); }, delay + last * step + 420);
+      }
+
+      /* -------------------------------------------------
+         2. Navbar — glassmorphism on scroll
+         ------------------------------------------------- */
+      function initNavScroll() {
+        var navbar = document.getElementById('navbar');
+        var threshold = 24;
+        var ticking = false;
+
+        function update() {
+          if (window.scrollY > threshold) {
+            navbar.classList.add('scrolled');
+          } else {
+            navbar.classList.remove('scrolled');
+          }
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', function () {
+          if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        update();
+      }
+
+      /* -------------------------------------------------
+         3. Feature cards — subtle cursor-tracked glow
+         ------------------------------------------------- */
+      function initCardGlow() {
+        var cards = document.querySelectorAll('.feature-card');
+        cards.forEach(function (card) {
+          card.addEventListener('mousemove', function (e) {
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--mx', ((e.clientX - r.left) / r.width  * 100) + '%');
+            card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
+          });
+        });
+      }
+
+      /* -------------------------------------------------
+         4. Language toggle (EN ⇄ 中)
+         ------------------------------------------------- */
+      var I18N = {
+        en: {
+          'nav.trade':              'Trade',
+          'nav.liquidity':          'Liquidity',
+          'nav.security':           'Security',
+          'nav.docs':               'Docs',
+          'hero.badge':             'Gateway on XRP Ledger',
+          'hero.word1':             'Trading',
+          'hero.word2':             'began',
+          'hero.word3':             'in',
+          'hero.word4':             '',
+          'hero.word5':             '',
+          'hero.word6':             '2014',
+          'hero.subtitle':          'RippleFox Dex — a better way to trade.',
+          'hero.ctaPrimary':        'Launch App',
+          'hero.ctaSecondary':      'Read Docs',
+          'hero.foot':              'Powered by intent-based architecture',
+          'features.eyebrow':       'Why RippleFox',
+          'features.title':         'Built for traders who refuse to wait.',
+          'features.subtitle':      'Three pillars that make RippleFox the fastest DEX in production.',
+          'features.card1.title':   'Sub-second Execution',
+          'features.card1.desc':    'Orders settle in under 400ms. Our matching engine is engineered from the silicon up for raw throughput.',
+          'features.card1.meta':    '< 400 ms latency',
+          'features.card2.title':   'Deep Cross-chain Liquidity',
+          'features.card2.desc':    'Aggregated routing across 12 chains and 40+ venues. Best price, every time, with zero manual bridging.',
+          'features.card2.meta':    '12 chains · 40+ venues',
+          'features.card3.title':   'Zero-compromise Security',
+          'features.card3.desc':    'Non-custodial by design. Audited by three top firms, with formal verification on every settlement path.',
+          'features.card3.meta':    '3 audits · formally verified',
+          'footer.copy':            '© 2026 RippleFox Labs. All rights reserved.',
+          'footer.twitter':         'Twitter',
+          'footer.github':          'GitHub',
+          'footer.discord':         'Discord',
+          'footer.medium':          'Medium'
+        },
+        zh: {
+          'nav.trade':              '交易',
+          'nav.liquidity':          '流动性',
+          'nav.security':           '安全',
+          'nav.docs':               '文档',
+          'hero.badge':             '新一代 DEX',
+          'hero.word1':             '创',
+          'hero.word2':             '建',
+          'hero.word3':             '于',
+          'hero.word4':             '',
+          'hero.word5':             '',
+          'hero.word6':             '2014',
+          'hero.subtitle':          '立足社区 普及知识 拥抱未来',
+          'hero.ctaPrimary':        '启动应用',
+          'hero.ctaSecondary':      '阅读文档',
+          'hero.foot':              '由意图驱动交易',
+          'features.eyebrow':       '为什么选择 RippleFox',
+          'features.title':         '为拒绝等待的交易者而生。',
+          'features.subtitle':      '三大支柱，让 RippleFox 成为生产环境中最快的 DEX。',
+          'features.card1.title':   '亚秒级执行',
+          'features.card1.desc':    '订单在 400 毫秒内结算。我们的撮合引擎从底层为极致吞吐而设计。',
+          'features.card1.meta':    '< 400 ms 延迟',
+          'features.card2.title':   '跨链深度流动性',
+          'features.card2.desc':    '聚合 12 条链、40+ 场所的最优路由。每次交易都是最优价，告别手动跨链。',
+          'features.card2.meta':    '12 条链 · 40+ 场所',
+          'features.card3.title':   '零妥协的安全',
+          'features.card3.desc':    '非托管设计，三家顶级机构审计，关键结算路径已形式化验证。',
+          'features.card3.meta':    '3 家审计 · 形式化验证',
+          'footer.copy':            '© 2026 RippleFox Labs. 保留所有权利。',
+          'footer.twitter':         '推特',
+          'footer.github':          'GitHub',
+          'footer.discord':         'Discord',
+          'footer.medium':          'Medium'
+        }
+      };
+
+      function applyLang(lang) {
+        var dict = I18N[lang] || I18N.en;
+        document.documentElement.lang = (lang === 'zh') ? 'zh-CN' : 'en';
+
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          // Skip elements with element children (handled by inner spans)
+          if (el.children.length > 0) return;
+          var key = el.getAttribute('data-i18n');
+          if (dict[key] != null) el.textContent = dict[key];
+        });
+
+        document.getElementById('langActive').textContent = (lang === 'zh') ? '中' : 'EN';
+        document.getElementById('langOther').textContent  = (lang === 'zh') ? 'EN' : '中';
+        try { localStorage.setItem('rf_lang', lang); } catch (_) {}
+      }
+
+      function initLang() {
+        var saved = null;
+        try { saved = localStorage.getItem('rf_lang'); } catch (_) {}
+        var initial = (saved === 'zh' || saved === 'en') ? saved : 'en';
+        applyLang(initial);
+
+        document.getElementById('langToggle').addEventListener('click', function () {
+          var current = (document.documentElement.lang === 'zh-CN') ? 'zh' : 'en';
+          applyLang(current === 'zh' ? 'en' : 'zh');
+        });
+      }
+
+
+      /* -------------------------------------------------
+         5. Hero — particle constellation network
+            - Random drifting dots
+            - Lines when particles get close
+            - Mouse cursor dispels particles
+         ------------------------------------------------- */
+      function initParticles() {
+        var canvas = document.getElementById('heroParticles');
+        var hero   = canvas && canvas.parentElement;
+        if (!canvas || !hero || !canvas.getContext) return;
+
+        var ctx = canvas.getContext('2d');
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        var isMobile = window.matchMedia('(max-width: 720px)').matches;
+        var PARTICLE_COUNT = isMobile ? 90 : 200;
+        var CONNECT_DIST   = isMobile ? 90  : 130;
+        var MOUSE_RADIUS   = 160;
+        var MOUSE_FORCE    = 5.5;
+
+        var particles = [];
+        var mouse = { x: -9999, y: -9999, active: false };
+        var w = 0, h = 0;
+
+        function resize() {
+          var r = hero.getBoundingClientRect();
+          w = r.width;  h = r.height;
+          canvas.width  = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+          canvas.style.width  = w + 'px';
+          canvas.style.height = h + 'px';
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function rand(min, max) { return min + Math.random() * (max - min); }
+
+        function makeParticle() {
+          return {
+            x: rand(0, w),
+            y: rand(0, h),
+            vx: rand(-1.5, 1.5),
+            vy: rand(-1.5, 1.5),
+            r: rand(0.6, 1.8),
+            phase: rand(0, Math.PI * 2)
+          };
+        }
+
+        function seed() {
+          particles = [];
+          for (var i = 0; i < PARTICLE_COUNT; i++) particles.push(makeParticle());
+        }
+
+        function update() {
+          for (var i = 0; i < particles.length; i++) {
+            var p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < -10)    { p.x = -10;    p.vx = Math.abs(p.vx); }
+            if (p.x > w + 10) { p.x = w + 10; p.vx = -Math.abs(p.vx); }
+            if (p.y < -10)    { p.y = -10;    p.vy = Math.abs(p.vy); }
+            if (p.y > h + 10) { p.y = h + 10; p.vy = -Math.abs(p.vy); }
+
+            if (mouse.active) {
+              var dx = p.x - mouse.x;
+              var dy = p.y - mouse.y;
+              var dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < MOUSE_RADIUS && dist > 0.1) {
+                var force = (1 - dist / MOUSE_RADIUS);
+                var push  = force * MOUSE_FORCE;
+                p.x += (dx / dist) * push;
+                p.y += (dy / dist) * push;
+                p.vx += (dx / dist) * force * 0.04;
+                p.vy += (dy / dist) * force * 0.04;
+                p.vx *= 0.96; p.vy *= 0.96;
+              }
+            }
+            p.phase += 0.02;
+          }
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          ctx.lineWidth = 0.6;
+          for (var i = 0; i < particles.length; i++) {
+            var a = particles[i];
+            for (var j = i + 1; j < particles.length; j++) {
+              var b = particles[j];
+              var dx = a.x - b.x;
+              var dy = a.y - b.y;
+              var d2 = dx * dx + dy * dy;
+              if (d2 < CONNECT_DIST * CONNECT_DIST) {
+                var d = Math.sqrt(d2);
+                var alpha = (1 - d / CONNECT_DIST) * 0.35;
+                ctx.strokeStyle = 'rgba(0, 255, 102, ' + alpha.toFixed(3) + ')';
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+              }
+            }
+          }
+
+          for (var k = 0; k < particles.length; k++) {
+            var p = particles[k];
+            var twinkle = 0.7 + Math.sin(p.phase) * 0.3;
+            var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
+            grad.addColorStop(0, 'rgba(0, 255, 102, ' + (0.55 * twinkle).toFixed(3) + ')');
+            grad.addColorStop(1, 'rgba(0, 255, 102, 0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = 'rgba(220, 255, 230, ' + twinkle.toFixed(3) + ')';
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        var rafId = null;
+        var running = false;
+        function loop() {
+          update();
+          draw();
+          rafId = requestAnimationFrame(loop);
+        }
+        function start() { if (!running) { running = true; loop(); } }
+        function stop()  { running = false; if (rafId) cancelAnimationFrame(rafId); }
+
+        function onMove(e) {
+          var r = hero.getBoundingClientRect();
+          var point = (e.touches && e.touches[0]) ? e.touches[0] : e;
+          mouse.x = point.clientX - r.left;
+          mouse.y = point.clientY - r.top;
+          mouse.active = true;
+        }
+        function onLeave() { mouse.active = false; }
+
+        hero.addEventListener('mousemove', onMove, { passive: true });
+        hero.addEventListener('mouseleave', onLeave, { passive: true });
+        hero.addEventListener('touchmove', onMove, { passive: true });
+        hero.addEventListener('touchend', onLeave, { passive: true });
+
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+              if (entries[i].isIntersecting) start(); else stop();
+            }
+          }, { threshold: 0.01 });
+          io.observe(hero);
+        }
+
+        window.addEventListener('resize', function () {
+          resize();
+          var newMobile = window.matchMedia('(max-width: 720px)').matches;
+          var newCount = newMobile ? 90 : 180;
+          if (newCount !== PARTICLE_COUNT) {
+            PARTICLE_COUNT = newCount;
+            seed();
+          }
+        });
+
+        resize();
+        seed();
+        if (!reduced) start();
+      }
+
+      /* -------------------------------------------------
+         Boot
+         ------------------------------------------------- */
+      document.addEventListener('DOMContentLoaded', function () {
+        initLang();          // set translated text first
+        initParticles();     // start the constellation background
+        initHeroReveal();    // then run the headline reveal
+        initNavScroll();
+        initCardGlow();
+      });
+    })();
+  </script>
+</body>
+</html>
+
